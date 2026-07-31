@@ -3,7 +3,7 @@ name: Build Android APK
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch: # এটি দিয়ে ম্যানুয়ালি বাটনে ক্লিক করে APK বিল্ড করা যায়
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Java
       uses: actions/setup-java@v3
@@ -19,21 +19,19 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
-    - name: Set up Flutter (যদি প্রজেক্টটি Flutter হয়)
+    - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.x'
+        channel: 'stable'
 
-    - name: Install Dependencies
-      run: flutter pub get # (Android Native হলে এটি বাদ দিয়ে ./gradlew dependencies দিন)
+    - name: Get Dependencies
+      run: flutter pub get
 
     - name: Build APK
-      run: flutter build apk --split-per-abi # অথবা flutter build apk --release
+      run: flutter build apk --release
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: IPTV-App-APK
+        name: IPTV-App
         path: build/app/outputs/flutter-apk/app-release.apk
-        path: build/app/outputs/flutter-apk/app-release.apk
-        

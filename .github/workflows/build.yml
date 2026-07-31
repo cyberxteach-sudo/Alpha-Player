@@ -36,3 +36,4 @@ jobs:
         name: IPTV-App
         path: build/app/outputs/flutter-apk/app-release.apk
         path: build/app/outputs/flutter-apk/app-release.apk
+        path: build/app/outputs/flutter-apk/app-release.apk
